@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./client/.
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    networks:
+      - network-database
+    environment:
+       MONGO_SRV: mongoserver
+       SITEHOSTNAME: Instagram.local 
+
+
+  backend:
+    build: ./server/.
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongoserver
+    networks:
+      - network-database
+    environment:
+       MONGO_SRV: mongoserver
+       SITEHOSTNAME: Instagram.local
+       PORT : '5000'
+       JWT_SECRET: yPeZ7IrfG3oDqF0RH4ClJUQiLm/w5CxE4Ex94PNE549M1AlElrDYZsYtD7lHPJHhOcTOoKA0Qaug+MY+g/bPR8UPqANMoiZWyMD6QsF/2OGsu9zydHyUx2sO0jIcp9M7DvLgQmGUaKOYi2vDfCBOugZVZ10sBVWTKcdJHhGO6h/w7kZOGtvuwPw1N63Ek+Tjj5Xx6w26xppL2NYOYlr7GLJbQL2Rrh7ZHH3Q==
+
+
+  mongoserver:
+    image: mongo:4.2.2
+    restart: unless-stopped
+    #uncomment following lines to access db locally
+    #ports:
+    #   - 27017:27017
+    
+    #volumes:
+    #  - ./db/:/docker-entrypoint-initdb.d
+    networks:
+      - network-database
+    environment:
+         MONGO_SRV: mongoserver
+
+
+
+  adminer:
+      image: adminer
+      restart: always
+      ports:
+        - 8090:8080
+      networks:
+        - network-database
+
+#volumes:
+#  sql_data:
+
+networks:
+  network-database:
+
+
+

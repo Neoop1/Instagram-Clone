@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 	image: {
 		backgroundSize: "cover",
 		backgroundColor: "#fafafa",
-		backgroundImage: "url(https://source.unsplash.com/random)",
+		backgroundImage: "url(https://picsum.photos/1000/1000)",
 		backgroundRepeat: "no-repeat",
 		backgroundPosition: "center",
 	},
